@@ -1,5 +1,8 @@
 # ffo-auto-paojiazu
-电脑必须已经注册好大漠dm.dll 操作步骤1. dm.dll 放到 D 盘根目录 2. cmd以管理员模式执行：regsvr32 D:\dm.dll  
+电脑必须已经注册好大漠dm.dll
+操作步骤1. dm.dll 放到 D 盘根目录  
+2. cmd以管理员模式执行：regsvr32 D:\dm.dll  
+
 小精灵.exe和dm_lib文件夹都放在桌面，Windows 账户用户名不能是中文  
 以管理员模式运行脚本  
 
