@@ -5,57 +5,77 @@ Set wsh = CreateObject("WScript.Shell")
 desktop = wsh.ExpandEnvironmentStrings("%USERPROFILE%\Desktop")
 full_dict = desktop & "\dm_lib\ffo.txt"
 
+Dim hwnd,winTitle,txt,count,x,y,a,b
+
 hwnd = dm.GetForegroundWindow()
 winTitle = dm.GetWindowTitle(hwnd)
-If InStr(winTitle,"QQ自由幻想") = 0 Then
-    EndScript
-End If
-If dm.BindWindow(hwnd,"gdi","normal","normal",0)=0 Then
-    EndScript
-End If
-dm.SetSimMode 1
+Delay 300
 
+If InStr(winTitle,"QQ自由幻想") = 0 Then EndScript
+If dm.BindWindow(hwnd,"gdi","normal","normal",0)=0 Then EndScript
+
+dm.SetSimMode 1
 dm.SetDict 0,full_dict
 dm.UseDict 0
 
 dm.MoveTo 1019,27:Delay 300:dm.LeftClick:Delay 3000
 count=0
+
 Do
     count=count+1
-    If count>3 Then 
-        Exit Do
-    End If
-    dm.MoveTo 703,324:Delay 300:dm.LeftClick:Delay 300
-    dm.MoveTo 514,420:Delay 300:dm.LeftClick:Delay 300
+    If count>3 Then Exit Do
+    
     Do
-        dm.MoveTo 520,290:Delay 300:dm.RightClick:Delay 300
         dm.MoveTo 703,324:Delay 300:dm.LeftClick:Delay 300
-        dm.MoveTo 514,420:Delay 300:dm.LeftClick:Delay 300
-        txt=dm.Ocr(299,222,734,343,"f87488-202020",1.0)
-        If InStr(txt,"龙城西郊")>0 Then
-            Exit Do
+        If dm.FindStr(293,354,739,447,"升级建设","a0eb91-000000",1.0,x,y) > -1 Then
+            dm.MoveTo x, y
+            Delay 300
+            dm.LeftClick
+            Delay 300
         End If
-    Loop
+        
+        txt=dm.Ocr(299,222,734,343,"f87488-202020",1.0)
+        If InStr(txt,"龙城西郊")>0 Then Exit Do
+        
+        dm.MoveTo 520, 290 : Delay 300 : dm.RightClick  : Delay 300
+        Delay 250
+    Loop 
+
     dm.MoveTo 495,364:Delay 300:dm.LeftClick:Delay 300
-    dm.MoveTo 893,123:Delay 300:dm.RightClick:Delay 4000
+    dm.MoveTo 893,123:Delay 300:dm.RightClick:Delay 4500
     dm.MoveTo 951,173:Delay 300:dm.LeftClick:Delay 300
     dm.MoveTo 896,216:Delay 300:dm.LeftClick:Delay 300
     dm.MoveTo 829,398:Delay 300:dm.LeftDown:Delay 1000:dm.LeftUp:Delay 300
-    dm.MoveTo 713,268:Delay 300:dm.LeftClick:Delay 30000
+
+    If dm.FindStr(660,210,750,400,"龙城西郊","FFFFFF-000000",1.0,a,b) > -1 Then
+        dm.MoveTo a,b:Delay 300:dm.LeftClick:Delay 30000
+    End If
+    
     dm.MoveTo 540,326:Delay 300:dm.LeftClick:Delay 300
     dm.MoveTo 479,364:Delay 300:dm.LeftClick:Delay 300
-    dm.KeyPress 112:Delay 1000
-    dm.MoveTo 935,109:Delay 300:dm.LeftClick:Delay 300
-    dm.MoveTo 509,338:Delay 300:dm.RightClick:Delay 300
+   
+    dm.MoveTo 830,380:Delay 300:dm.LeftDoubleClick:Delay 1500
+'   dm.KeyPress 112:Delay 1500
+
     dm.KeyPress 122:Delay 200:dm.KeyPress 122:Delay 200:dm.KeyPress 122:Delay 200
-    dm.MoveTo 935,109:Delay 300:dm.LeftClick:Delay 15000
+    dm.MoveTo 935,109:Delay 300:dm.LeftClick:Delay 300
+    dm.MoveTo 509,338:Delay 300:dm.RightClick:Delay 300  
+    dm.MoveTo 935,109:Delay 300:dm.LeftClick:Delay 20000
     dm.MoveTo 650,335:Delay 300:dm.LeftClick:Delay 300
     dm.MoveTo 480,400:Delay 300:dm.LeftClick:Delay 300
     dm.MoveTo 480,365:Delay 300:dm.LeftClick:Delay 1000
     dm.MoveTo 1019,27:Delay 300:dm.LeftClick:Delay 3000
+    
     dm.MoveTo 703,324:Delay 300:dm.LeftClick:Delay 300
-    dm.MoveTo 514,420:Delay 300:dm.LeftClick:Delay 300
+    If dm.FindStr(293,354,739,447,"升级建设","a0eb91-000000",1.0,x,y) > -1 Then
+        dm.MoveTo x, y
+        Delay 300
+        dm.LeftClick
+        Delay 300
+    End If
+    
     dm.MoveTo 514,364:Delay 300:dm.LeftClick:Delay 300
 Loop
+
 dm.UnBindWindow
 EndScript
